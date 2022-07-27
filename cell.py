@@ -20,15 +20,39 @@ class Cell:
             location,
             width=12,
             height=4,
-            text=f"{self.x},{self.y}"
         )
         btn.bind('<Button-1>', self.left_click_actions)
         btn.bind('<Button-3>', self.right_click_actions)
         self.cell_btn_object = btn
 
     def left_click_actions(self, event):
-        print(event)
-        print("left clicked")
+        if self.is_mine:
+            self.show_mine()
+        else:
+            self.show_cell()
+
+    def get_cell_by_axis(self, x, y):
+        # Return a cell object based on x, y
+        for cell in Cell.all:
+            if cell.x == x and cell.y == y:
+                return cell
+
+    def show_cell(self):
+        surrounded_cells = [
+            self.get_cell_by_axis(self.x - 1, self.y - 1),
+            self.get_cell_by_axis(self.x - 1, self.y),
+            self.get_cell_by_axis(self.x - 1, self.y + 1),
+            self.get_cell_by_axis(self.x, self.y - 1),
+            self.get_cell_by_axis(self.x, self.y + 1),
+            self.get_cell_by_axis(self.x + 1, self.y),
+            self.get_cell_by_axis(self.x + 1, self.y - 1),
+            self.get_cell_by_axis(self.x + 1, self.y + 1),
+        ]
+        print(surrounded_cells)
+
+    def show_mine(self):
+        # Interrupt Game and Display Message
+        self.cell_btn_object.configure(bg='red')
 
     def right_click_actions(self, event):
         print(event)

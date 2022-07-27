@@ -1,4 +1,4 @@
-# Minesweeper with Object Oriented Programming 3/6
+# Minesweeper with Object Oriented Programming
 from tkinter import *
 from cell import Cell
 import settings
